@@ -39,6 +39,7 @@ for key in chartoint:
     tempcount += 1
 inttochar = list(chartoint)
 
+
 def frequency(inputtext):
     intext = inputtext.replace(" ", "")
     dictionary = dict.fromkeys(string.ascii_uppercase, 0)
@@ -85,14 +86,16 @@ def similarity(frequencies):
         #print(char, frequencies[char], letterFrequency[char])
         out = out + abs(frequencies[char] - letterFrequency[char])
     return out
-def main():
+def main(inputtext):
     shifts = {}
     for a in range(alphasize):
         for b in range(alphasize):
-            temp = affine(a,b,cyphertext)
+            temp = affine(a,b,inputtext)
             temp = frequency(temp)
             shifts[similarity(temp)] = [a,b]
-    print(dict(sorted(shifts.items())))
+    #shifts = dict(sorted(shifts.items()))
+    minval = shifts[min(shifts.keys())]
+    print(affine(minval[0], minval[1], inputtext))
+    return affine(minval[0], minval[1], inputtext)
 
-main()
-print(affine(23, 24, cyphertext))
+main(cyphertext)
